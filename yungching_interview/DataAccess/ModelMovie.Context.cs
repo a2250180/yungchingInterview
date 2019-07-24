@@ -13,10 +13,10 @@ namespace DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MovieTestEntities : DbContext
+    public partial class MovieEntities : DbContext
     {
-        public MovieTestEntities()
-            : base("name=MovieTestEntities")
+        public MovieEntities()
+            : base("name=MovieEntities")
         {
         }
     

@@ -71,32 +71,30 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="ModelMovie.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelMovie.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="ModelMovie.edmx.diagram">
       <DependentUpon>ModelMovie.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ModelMovie.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelMovie.Context.cs</LastGenOutput>
       <DependentUpon>ModelMovie.edmx</DependentUpon>
+      <LastGenOutput>ModelMovie.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ModelMovie.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMovie.edmx</DependentUpon>
       <LastGenOutput>ModelMovie.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

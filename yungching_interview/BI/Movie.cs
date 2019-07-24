@@ -11,33 +11,33 @@ namespace BI
     {
         public List<DataAccess.Movie> GetAllMovie()     //取得所有電影
         {
-            MovieTestEntities dbMovieTest = new MovieTestEntities();
-            return dbMovieTest.Movie.ToList();
+            MovieEntities dbMovie = new MovieEntities();
+            return dbMovie.Movie.ToList();
         }
 
         public DataAccess.Movie GetMovie(int movieID)       //取得指定的電影
         {
-            MovieTestEntities dbMovieTest = new MovieTestEntities();
-            DataAccess.Movie movie = dbMovieTest.Movie.FirstOrDefault(x => x.ID == movieID);
+            MovieEntities dbMovie = new MovieEntities();
+            DataAccess.Movie movie = dbMovie.Movie.FirstOrDefault(x => x.ID == movieID);
             return movie;
         }
 
         public bool CreateMovie(DataAccess.Movie movie)     //新增電影
         {
-            MovieTestEntities dbMovieTest = new MovieTestEntities();
-            dbMovieTest.Movie.Add(movie);
-            dbMovieTest.SaveChanges();
+            MovieEntities dbMovie = new MovieEntities();
+            dbMovie.Movie.Add(movie);
+            dbMovie.SaveChanges();
             return true;
         }
 
         public bool UpdateMovie(DataAccess.Movie movie)     //更新電影
         {
-            MovieTestEntities dbMovieTest = new MovieTestEntities();
-            DataAccess.Movie queryMovie = dbMovieTest.Movie.FirstOrDefault(x => x.ID == movie.ID);
+            MovieEntities dbMovie = new MovieEntities();
+            DataAccess.Movie queryMovie = dbMovie.Movie.FirstOrDefault(x => x.ID == movie.ID);
             if(queryMovie != null)
             {
-                dbMovieTest.Entry(queryMovie).CurrentValues.SetValues(movie);
-                dbMovieTest.SaveChanges();
+                dbMovie.Entry(queryMovie).CurrentValues.SetValues(movie);
+                dbMovie.SaveChanges();
                 return true;
             }
             return false;
@@ -45,12 +45,12 @@ namespace BI
 
         public bool DeleteMovie(int movieID)        //刪除電影
         {
-            MovieTestEntities dbMovieTest = new MovieTestEntities();
-            DataAccess.Movie queryMovie = dbMovieTest.Movie.FirstOrDefault(x => x.ID == movieID);
+            MovieEntities dbMovie = new MovieEntities();
+            DataAccess.Movie queryMovie = dbMovie.Movie.FirstOrDefault(x => x.ID == movieID);
             if (queryMovie != null)
             {
-                dbMovieTest.Movie.Remove(queryMovie);
-                dbMovieTest.SaveChanges();
+                dbMovie.Movie.Remove(queryMovie);
+                dbMovie.SaveChanges();
                 return true;
             }
             return false;
