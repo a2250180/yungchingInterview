@@ -48,8 +48,11 @@ namespace yungching_interview.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = biMovie.CreateMovie(movie).ToPagedList(1, 10);
-                return PartialView("MovieTable", result);
+                if (biMovie.CreateMovie(movie))
+                {
+                    var result = biMovie.GetAllMovie().ToPagedList(1, 10);
+                    return PartialView("MovieTable", result);
+                }
             }
             return PartialView("CreateMovie", movie);
         }
@@ -59,10 +62,24 @@ namespace yungching_interview.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = biMovie.UpdateMovie(movie).ToPagedList(1, 10);
-                return PartialView("MovieTable", result);
+                if (biMovie.UpdateMovie(movie))
+                {
+                    var result = biMovie.GetAllMovie().ToPagedList(1, 10);
+                    return PartialView("MovieTable", result);
+                }
             }
             return PartialView("UpdateMovie", movie);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMovie(int movieID)
+        {
+            if (biMovie.DeleteMovie(movieID))
+            {
+                var result = biMovie.GetAllMovie().ToPagedList(1, 10);
+                return PartialView("MovieTable", result);
+            }
+            return PartialView("MovieTable", null);
         }
     }
 }

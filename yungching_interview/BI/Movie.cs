@@ -22,24 +22,38 @@ namespace BI
             return movie;
         }
 
-        public List<DataAccess.Movie> CreateMovie(DataAccess.Movie movie)
+        public bool CreateMovie(DataAccess.Movie movie)
         {
             MovieTestEntities dbMovieTest = new MovieTestEntities();
             dbMovieTest.Movie.Add(movie);
             dbMovieTest.SaveChanges();
-            return dbMovieTest.Movie.ToList();
+            return true;
         }
 
-        public List<DataAccess.Movie> UpdateMovie(DataAccess.Movie movie)
+        public bool UpdateMovie(DataAccess.Movie movie)
         {
             MovieTestEntities dbMovieTest = new MovieTestEntities();
             DataAccess.Movie queryMovie = dbMovieTest.Movie.FirstOrDefault(x => x.ID == movie.ID);
             if(queryMovie != null)
             {
                 dbMovieTest.Entry(queryMovie).CurrentValues.SetValues(movie);
+                dbMovieTest.SaveChanges();
+                return true;
             }
-            dbMovieTest.SaveChanges();
-            return dbMovieTest.Movie.ToList();
+            return false;
+        }
+
+        public bool DeleteMovie(int movieID)
+        {
+            MovieTestEntities dbMovieTest = new MovieTestEntities();
+            DataAccess.Movie queryMovie = dbMovieTest.Movie.FirstOrDefault(x => x.ID == movieID);
+            if (queryMovie != null)
+            {
+                dbMovieTest.Movie.Remove(queryMovie);
+                dbMovieTest.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

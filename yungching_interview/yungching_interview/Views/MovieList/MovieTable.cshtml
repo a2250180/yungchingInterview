@@ -9,6 +9,15 @@
             $('#modalMovie').modal('show');
         });
     }
+
+    function DeleteMovie(movieID) {
+        var confirmDelete = confirm("確定要刪除?");
+        if (confirmDelete === true) {
+            $.post('/MovieList/DeleteMovie', { movieID: movieID }, function (data) {
+                $('#divMovieTable').html(data);
+            });
+        }
+    }
 </script>
 
 <div class="col-md-12 table-responsive">
@@ -33,7 +42,7 @@
                     <td>
                         <button class="btn btn-info" type="button" onclick="OpenMovieDetail(@item.ID, false)">細節</button>
                         <button class="btn btn-primary" type="button" onclick="OpenMovieDetail(@item.ID, true)">更新</button>
-                        <button class="btn btn-danger" type="button">刪除</button>
+                        <button class="btn btn-danger" type="button" onclick="DeleteMovie(@item.ID)">刪除</button>
                     </td>
                 </tr>
             }
