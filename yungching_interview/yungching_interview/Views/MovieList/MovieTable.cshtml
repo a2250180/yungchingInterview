@@ -14,7 +14,11 @@
         var confirmDelete = confirm("確定要刪除?");
         if (confirmDelete === true) {
             $.post('/MovieList/DeleteMovie', { movieID: movieID }, function (data) {
-                $('#divMovieTable').html(data);
+                if (data === '刪除電影失敗') {
+                    alert('刪除電影失敗');
+                } else {
+                    $('#divMovieTable').html(data);
+                }
             });
         }
     }

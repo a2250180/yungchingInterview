@@ -29,26 +29,26 @@ namespace yungching_interview.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetMovie(int movieID, bool is4Update)
+        public ActionResult GetMovie(int movieID, bool is4Update)       //取得指定電影
         {
-            if (is4Update)
+            if (is4Update)      //是否為更新使用
             {
                 return PartialView("UpdateMovie", biMovie.GetMovie(movieID));
             }
             return PartialView("MovieDetail", biMovie.GetMovie(movieID));
         }
 
-        public ActionResult OpenCreateMovieModal()
+        public ActionResult OpenCreateMovieModal()      //呼叫新增電影的介面
         {
             return PartialView("CreateMovie");
         }
 
         [HttpPost]
-        public ActionResult CreateMovie(DataAccess.Movie movie)
+        public ActionResult CreateMovie(DataAccess.Movie movie)     //新增電影
         {
             if (ModelState.IsValid)
             {
-                if (biMovie.CreateMovie(movie))
+                if (biMovie.CreateMovie(movie))     //如果新增電影成功
                 {
                     var result = biMovie.GetAllMovie().ToPagedList(1, 10);
                     return PartialView("MovieTable", result);
@@ -62,7 +62,7 @@ namespace yungching_interview.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (biMovie.UpdateMovie(movie))
+                if (biMovie.UpdateMovie(movie))     //如果更新電影成功
                 {
                     var result = biMovie.GetAllMovie().ToPagedList(1, 10);
                     return PartialView("MovieTable", result);
@@ -74,12 +74,12 @@ namespace yungching_interview.Controllers
         [HttpPost]
         public ActionResult DeleteMovie(int movieID)
         {
-            if (biMovie.DeleteMovie(movieID))
+            if (biMovie.DeleteMovie(movieID))       //如果刪除電影成功
             {
                 var result = biMovie.GetAllMovie().ToPagedList(1, 10);
                 return PartialView("MovieTable", result);
             }
-            return PartialView("MovieTable", null);
+            return Content("刪除電影失敗");
         }
     }
 }
