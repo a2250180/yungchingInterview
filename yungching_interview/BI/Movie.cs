@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess;
 
 namespace BI
 {
-    class Movie
+    public class Movie
     {
+        public List<DataAccess.Movie> GetAllMovie()
+        {
+            MovieTestEntities movieTestEntities = new MovieTestEntities();
+            return movieTestEntities.Movie.ToList();
+        }
     }
 }
