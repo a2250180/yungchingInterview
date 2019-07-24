@@ -1,0 +1,21 @@
+﻿<script>
+    function RefreshMovieList(data) {
+        $('#modalContentMovie').html(data);
+        if ($('#modalContentMovie .field-validation-error').length === 0) {
+            $('#modalMovie').modal('hide');
+            $('#divMovieTable').html(data);
+        }
+    }
+</script>
+
+<!-- Modal -->
+<div id="modalMovie" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modalContentMovie">
+            
+        </div>
+
+    </div>
+</div>

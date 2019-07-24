@@ -1,7 +1,46 @@
-﻿
-@{
-    ViewBag.Title = "MovieDetail";
-}
+﻿@model DataAccess.Movie
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">@Model.Title</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-3">
+            電影名稱
+        </div>
+        <div class="col-md-9">
+            @Model.Title
+        </div>
 
-<h2>MovieDetail</h2>
+        <div class="col-md-3">
+            電影釋出時間
+        </div>
+        <div class="col-md-9">
+            @Model.ReleaseDate.ToShortDateString()
+        </div>
 
+        <div class="col-md-3">
+            電影類型
+        </div>
+        <div class="col-md-9">
+            @Model.Genre
+        </div>
+
+        <div class="col-md-3">
+            電影價格
+        </div>
+        <div class="col-md-9">
+            @Model.Price
+        </div>
+
+        <div class="col-md-3">
+            電影評分
+        </div>
+        <div class="col-md-9">
+            @Model.Rating
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+</div>

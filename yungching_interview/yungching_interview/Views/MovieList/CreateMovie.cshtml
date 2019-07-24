@@ -1,7 +1,66 @@
-﻿
-@{
-    ViewBag.Title = "CreateMovie";
+﻿@model DataAccess.Movie
+
+@using (Ajax.BeginForm("CreateMovie", "MovieList", null, new AjaxOptions() { HttpMethod = "Post", OnSuccess = "RefreshMovieList" }, new { id = "FormCreateMovie" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">新增電影</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                電影名稱
+            </div>
+            <div class="col-md-12">
+                @Html.TextBox("Title", null, new { @class = "form-control" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                電影釋出時間
+            </div>
+            <div class="col-md-12">
+                @Html.TextBox("ReleaseDate", null, new { @class = "form-control", type = "date" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.ReleaseDate)
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                電影類型
+            </div>
+            <div class="col-md-12">
+                @Html.TextBox("Genre", null, new { @class = "form-control" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Genre)
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                電影價格
+            </div>
+            <div class="col-md-12">
+                @Html.TextBox("Price", null, new { @class = "form-control", type = "number" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Price)
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                電影評分
+            </div>
+            <div class="col-md-12">
+                @Html.TextBox("Rating", null, new { @class = "form-control" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Rating)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="$('#FormCreateMovie').submit()">新增</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+    </div>
 }
-
-<h2>CreateMovie</h2>
-

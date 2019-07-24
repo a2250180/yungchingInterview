@@ -1,0 +1,48 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<DataAccess.Movie>
+
+<script>
+    function OpenMovieDetail(movieID, is4Update) {
+        $.post('/MovieList/GetMovie', { movieID: movieID, is4Update: is4Update }, function (data) {
+            $('#modalContentMovie').html(data);
+            $('#modalMovie').modal('show');
+        });
+    }
+</script>
+
+<div class="col-md-12 table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>電影名稱</th>
+                <th>釋出時間</th>
+                <th>類型</th>
+                <th>價格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.ReleaseDate.ToShortDateString()</td>
+                    <td>@item.Genre</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <button class="btn btn-info" type="button" onclick="OpenMovieDetail(@item.ID, false)">細節</button>
+                        <button class="btn btn-primary" type="button" onclick="OpenMovieDetail(@item.ID, true)">更新</button>
+                        <button class="btn btn-danger" type="button">刪除</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <div class="text-center">
+        @Html.PagedListPager(Model, x => Url.Action("Index", new { page = x }))
+    </div>
+</div>

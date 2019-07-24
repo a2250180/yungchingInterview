@@ -10,11 +10,12 @@ namespace yungching_interview.Controllers
 {
     public class MovieListController : Controller
     {
-        // GET: MovieList
+        Movie biMovie = new Movie();
+
         public ActionResult Index(int? pageNumber)
         {
             int currentPage;
-            if(pageNumber == null)
+            if (pageNumber == null)
             {
                 currentPage = 1;
             }
@@ -23,9 +24,45 @@ namespace yungching_interview.Controllers
                 currentPage = Convert.ToInt32(pageNumber);
             }
 
-            Movie biMovie = new Movie();
-            var  result = biMovie.GetAllMovie().ToPagedList(currentPage, 10);
+            var result = biMovie.GetAllMovie().ToPagedList(currentPage, 10);
             return View("AllMovie", result);
+        }
+
+        [HttpPost]
+        public ActionResult GetMovie(int movieID, bool is4Update)
+        {
+            if (is4Update)
+            {
+                return PartialView("UpdateMovie", biMovie.GetMovie(movieID));
+            }
+            return PartialView("MovieDetail", biMovie.GetMovie(movieID));
+        }
+
+        public ActionResult OpenCreateMovieModal()
+        {
+            return PartialView("CreateMovie");
+        }
+
+        [HttpPost]
+        public ActionResult CreateMovie(DataAccess.Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = biMovie.CreateMovie(movie).ToPagedList(1, 10);
+                return PartialView("MovieTable", result);
+            }
+            return PartialView("CreateMovie", movie);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateMovie(DataAccess.Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = biMovie.UpdateMovie(movie).ToPagedList(1, 10);
+                return PartialView("MovieTable", result);
+            }
+            return PartialView("UpdateMovie", movie);
         }
     }
 }

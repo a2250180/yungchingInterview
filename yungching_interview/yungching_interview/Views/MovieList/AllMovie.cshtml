@@ -1,9 +1,17 @@
 ﻿@using PagedList;
-@using PagedList.Mvc;
 @model IPagedList<DataAccess.Movie>
 @{
     ViewBag.Title = "電影列表";
 }
+
+<script>
+    function OpenCreateMovieInput() {
+        $.get('/MovieList/OpenCreateMovieModal', function (data) {
+            $('#modalContentMovie').html(data);
+            $('#modalMovie').modal('show');
+        });
+    }
+</script>
 
 <div class="row">
     <div class="col-md-12">
@@ -11,40 +19,12 @@
     </div>
 
     <div class="col-md-12 form-group">
-        <button class="btn btn-success" type="button">新增</button>
+        <button type="button" class="btn btn-success" onclick="OpenCreateMovieInput()">新增</button>
     </div>
 
-    <div class="col-md-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Release Date</th>
-                    <th>Genre</th>
-                    <th>Price</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Title</td>
-                        <td>@item.ReleaseDate.ToShortDateString()</td>
-                        <td>@item.Genre</td>
-                        <td>@item.Price</td>
-                        <td>
-                            <button class="btn btn-info" type="button">資訊</button>
-                            <button class="btn btn-primary" type="button">更新</button>
-                            <button class="btn btn-danger" type="button">刪除</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div id="divMovieTable">
+        @Html.Partial("MovieTable", Model)
     </div>
 </div>
 
-<div class="text-center">
-    @Html.PagedListPager(Model, x => Url.Action("Index", new { page = x }))
-</div>
+@Html.Partial("MovieModal")
