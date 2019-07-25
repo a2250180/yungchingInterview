@@ -56,6 +56,6 @@
 
 <div class="col-md-12">
     <div class="text-center">
-        @Html.PagedListPager(Model, x => Url.Action("Index", new { page = x }))
+        @Html.PagedListPager(Model, x => Url.Action("Index", new { pageNumber = x }))
     </div>
 </div>
